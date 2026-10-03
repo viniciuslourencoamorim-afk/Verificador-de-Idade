@@ -2,6 +2,8 @@
 
 Projeto com aplicativo desktop em Python/CustomTkinter e uma versao web estatica.
 
+> **Acessar a interface web:** [Abrir Verificador de Idade](https://viniciuslourencoamorim-afk.github.io/Verificador-de-Idade/)
+
 ## Aplicativo desktop
 
 ```powershell
@@ -14,8 +16,6 @@ O aplicativo desktop salva os cadastros em `dados_salvos.json`, ao lado do scrip
 ## Pagina web
 
 Os arquivos do site ficam em `site/`. O GitHub Actions publica automaticamente a pagina quando ha alteracoes em `site/` na branch `main`.
-
-URL: https://viniciuslourencoamorim-afk.github.io/Verificador-de-Idade/
 
 Na versao web, os cadastros ficam no `localStorage` do navegador atual. Eles nao sao compartilhados entre dispositivos nem enviados ao GitHub.
 
