@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1f4ee">
+  <meta name="description" content="Verifique a maioridade e mantenha seus cadastros neste navegador.">
+  <title>Verificador de idade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="page-grid" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="Verificador de idade, início">
+        <span class="brand-mark">18</span>
+        <span class="brand-name">IDADE<span>/</span>CLARA</span>
+      </a>
+      <div class="storage-label"><span class="status-dot"></span>ARMAZENAMENTO LOCAL</div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="page-heading" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">FERRAMENTA DE CADASTRO <span>01</span></p>
+        <h1 id="page-title">Verificador <span>de idade</span></h1>
+      </div>
+      <div class="age-rule" aria-label="Maioridade a partir de 18 anos">
+        <span class="age-rule-number">18</span>
+        <span>ANOS PARA<br>MAIORIDADE</span>
+      </div>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="Telas do aplicativo">
+      <button class="tab-button" id="tab-form" type="button" role="tab" aria-selected="true" aria-controls="form-view">
+        Cadastro <span class="tab-number">01</span>
+      </button>
+      <button class="tab-button" id="tab-records" type="button" role="tab" aria-selected="false" aria-controls="records-view" tabindex="-1">
+        Dados salvos <span class="record-count" id="record-count">0</span>
+      </button>
+    </nav>
+
+    <section class="view form-view" id="form-view" role="tabpanel" aria-labelledby="tab-form">
+      <form class="form-panel" id="person-form" novalidate>
+        <div class="section-heading">
+          <p class="section-index">01 / IDENTIFICAÇÃO</p>
+          <h2>Novo cadastro</h2>
+        </div>
+
+        <div class="field">
+          <label for="person-name">Nome completo</label>
+          <input id="person-name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="Ex.: Maria Silva" required>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="person-email">E-mail</label>
+            <input id="person-email" name="email" type="email" autocomplete="email" maxlength="150" placeholder="voce@exemplo.com" required>
+          </div>
+          <div class="field age-field">
+            <label for="person-age">Idade</label>
+            <div class="age-input-wrap">
+              <input id="person-age" name="age" type="number" inputmode="numeric" min="0" max="130" step="1" placeholder="18" required>
+              <span>ANOS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-secondary" id="check-button" type="button">Verificar idade</button>
+          <button class="button button-primary" type="submit">Salvar cadastro <span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="feedback" id="form-feedback" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="verdict-panel" id="verdict-panel" aria-live="polite" aria-atomic="true">
+        <div class="verdict-topline">
+          <span class="section-index">RESULTADO</span>
+          <span class="threshold-tag">LIMITE 18+</span>
+        </div>
+        <div class="verdict-symbol" id="verdict-symbol" aria-hidden="true">—</div>
+        <h2 id="verdict-title">Aguardando consulta</h2>
+        <p class="verdict-description" id="verdict-description">O resultado da verificação aparecerá aqui.</p>
+        <div class="verdict-details" id="verdict-details" hidden>
+          <span id="verdict-name"></span>
+          <span id="verdict-email"></span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="view records-view" id="records-view" role="tabpanel" aria-labelledby="tab-records" hidden>
+      <div class="records-heading">
+        <div>
+          <p class="section-index">02 / HISTÓRICO</p>
+          <h2>Dados salvos</h2>
+        </div>
+        <div class="records-controls">
+          <span class="records-summary" id="records-summary">0 cadastros</span>
+          <button class="button button-danger" id="clear-button" type="button" hidden>Limpar lista</button>
+        </div>
+      </div>
+
+      <div class="table-frame">
+        <div class="table-scroll" id="table-scroll" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Idade</th>
+                <th scope="col">Classificação</th>
+                <th scope="col"><span class="visually-hidden">Ações</span></th>
+              </tr>
+            </thead>
+            <tbody id="records-body"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="empty-state">
+          <span class="empty-index">00</span>
+          <div>
+            <h3>Nenhum cadastro ainda</h3>
+            <p>Os registros salvos neste navegador aparecerão aqui.</p>
+          </div>
+          <button class="button button-secondary" id="new-record-button" type="button">Novo cadastro</button>
+        </div>
+      </div>
+      <p class="privacy-note"><span class="status-dot"></span>Os registros ficam neste navegador e não são enviados ao GitHub.</p>
+      <p class="feedback records-feedback" id="records-feedback" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer class="page-footer">
+      <span>IDADE/CLARA <span class="footer-dot">·</span> VERIFICAÇÃO LOCAL</span>
+      <span>SEUS DADOS PERMANECEM NESTE NAVEGADOR</span>
+    </footer>
+  </main>
+</body>
+</html>
